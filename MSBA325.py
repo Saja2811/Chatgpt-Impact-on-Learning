@@ -89,6 +89,37 @@ st.markdown(f"""
 - The data reveals that a significant proportion of students rely on AI in their studying.
 """)
 
+#test 
+st.subheader("AI Usage Among Students")
+# Count AI usage
+ai_usage_counts = df['UsesAI'].value_counts()
+# Generate a sequential color palette (dark to light)
+colors = sns.color_palette("Blues_r", len(ai_usage_counts))  # Reverse palette for dark-to-light shading
+# Pie Chart
+fig1, ax1 = plt.subplots(figsize=(4, 4))  # Increased figure size for clarity
+ax1.pie(
+    ai_usage_counts, 
+    labels=ai_usage_counts.index, 
+    textprops={'fontsize': 10},  # Increased text size for better readability
+    autopct='%1.1f%%',  # Show percentage values
+    startangle=120, 
+    colors=colors,
+)
+st.pyplot(fig1)
+
+# Adding Insights
+total_students = ai_usage_counts.sum()
+students_using_ai = ai_usage_counts.get(1, 0)  # Assuming 1 = Using AI
+students_not_using_ai = ai_usage_counts.get(0, 0)  # Assuming 0 = Not Using AI
+st.markdown(f"""
+### Insights:
+- Total Students Surveyed: **{total_students}**
+- Students Using AI: **{students_using_ai} ({students_using_ai / total_students * 100:.1f}%)**
+- Students Not Using AI: **{students_not_using_ai} ({students_not_using_ai / total_students * 100:.1f}%)**
+- The data reveals that a significant proportion of students rely on AI in their studying.
+""")
+
+
 
 # Visualization 3: AI Familiarity Levels
 st.subheader("AI Familiarity Levels")
