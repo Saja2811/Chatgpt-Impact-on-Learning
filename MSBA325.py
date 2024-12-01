@@ -74,7 +74,7 @@ else:
 
 #test 2
 # Data for heatmap
-heatmap_data = [[48%], [84%], [108%], [54%], [5%]]
+heatmap_data = [[48], [84], [108], [54], [5]]
 labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
 
 fig, ax = plt.subplots(figsize=(5, 7))
