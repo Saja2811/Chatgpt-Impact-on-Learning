@@ -390,7 +390,7 @@ st.subheader("Tool Usage Summary:")
 st.write(
     f"A total of 311 users used ChatGPT, 67 used Google Gemini, 2 used Jasper, and 6 used Midjourney."
 )
-
+st.title(" Proposed Solution:")
 st.markdown(f"""
 ### Proposed Solution:
 To address the growing reliance on generative AI tools like ChatGPT in academic learning, the solution lies in promoting AI literacy, establishing clear usage guidelines, and fostering a balance between AI-assisted and traditional learning. Universities should offer workshops to teach students the strengths and limitations of AI, integrate AI into curricula with a focus on critical evaluation, and design assignments that encourage thoughtful validation of AI outputs. Clear policies should define appropriate AI use while incentivizing ethical behavior. Additionally, faculty should receive training to adapt their teaching methods and assessments to AI-influenced learning. By monitoring student usage and maintaining traditional skill-building exercises, this approach ensures that AI enhances learning without undermining critical thinking, academic integrity, or intellectual growth.
