@@ -85,7 +85,7 @@ total_students = ai_usage_counts.sum()
 students_using_ai = ai_usage_counts.get(1, 0)  # Assuming 1 = Using AI
 students_not_using_ai = ai_usage_counts.get(0, 0)  # Assuming 0 = Not Using AI
 st.markdown(f"""
-A total of **{total_students}** students were surveyed, among whom **{students_not_using_ai} ({students_not_using_ai / total_students * 100:.1f}%)** reported not using AI, while **{students_using_ai} ({students_using_ai / total_students * 100:.1f}%)** indicated they use AI. These results highlight that a significant proportion of students rely on AI in their studies.
+A total of **{total_students}** students were surveyed, among whom **{students_not_using_ai} ({students_not_using_ai / total_students * 100:.1f}%)** reported using AI, while **{students_using_ai} ({students_using_ai / total_students * 100:.1f}%)** indicated they don't use AI. These results highlight that a significant proportion of students rely on AI in their studies.
 """)
 
 
