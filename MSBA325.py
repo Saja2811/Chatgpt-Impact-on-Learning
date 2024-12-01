@@ -71,64 +71,65 @@ else:
     )
     st.plotly_chart(fig, use_container_width=True)
 
-#test
-st.subheader("Enhanced Bubble Chart: Dependency on AI in Learning")
-dependency_percentages = {
-    1: 48,  # 10% of students have dependency level 1
-    2: 84,  # 20% have dependency level 2
-    3: 108,  # 30% have dependency level 3
-    4: 54,  # 25% have dependency level 4
-    5: 5   # 15% have dependency level 5
-}
-
-# Labels for dependency levels
-dependency_labels = {
-    1: "Very Low Dependency",
-    2: "Low Dependency",
-    3: "Moderate Dependency",
-    4: "High Dependency",
-    5: "Very High Dependency"
-}
-# Extract levels, percentages, and labels
-levels = list(dependency_percentages.keys())
-percentages = list(dependency_percentages.values())
-labels = [dependency_labels[level] for level in levels]
-
-# Normalize percentages for bubble sizes
-bubble_sizes = [p * 30 for p in percentages]
-
-# Create a bubble chart
-fig, ax = plt.subplots(figsize=(10, 6))
-scatter = ax.scatter(
-    levels, percentages, s=bubble_sizes, c=percentages, cmap="Blues", alpha=0.7, edgecolors="w"
-)
-
-# Add labels to the bubbles with bold and larger font
-for i, txt in enumerate(labels):
-    ax.text(levels[i], percentages[i] + 2, txt, ha="center", fontsize=10, fontweight="bold")
-
-# Set chart details
-ax.set_title("Dependency on AI in Learning", fontsize=16, fontweight="bold")
-ax.set_xlabel("Dependency Level", fontsize=12)
-ax.set_ylabel("Percentage of Students (%)", fontsize=12)
-ax.set_xticks(levels)
-ax.set_xticklabels([f"Level {level}" for level in levels])
-# Add grid for better readability
-#ax.grid(True, linestyle='--', alpha=0.6)
-
-st.pyplot(fig)
 
 #test 2
 # Data for heatmap
-heatmap_data = [[48], [84], [108], [54], [5]]
+heatmap_data = [[48%], [84%], [108%], [54%], [5%]]
 labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
 
-fig, ax = plt.subplots(figsize=(6, 8))
+fig, ax = plt.subplots(figsize=(5, 7))
 sns.heatmap(heatmap_data, annot=True, fmt="d", cmap="Blues", yticklabels=labels, cbar=False)
 ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
 ax.set_xlabel("Percentage of Students")
 ax.set_ylabel("Dependency Level")
 st.pyplot(fig)
+
+#test
+data = {
+    "Dependency Level": [1, 2, 3, 4, 5],
+    "Percentage of Students": [48, 84, 108, 54, 5],
+    "Dependency": [
+        "Very Low Dependency",
+        "Low Dependency",
+        "Moderate Dependency",
+        "High Dependency",
+        "Very High Dependency",
+    ],
+}
+
+df = pd.DataFrame(data)
+# Create an interactive bubble chart with hover functionality
+fig = px.scatter(
+    df,
+    x="Dependency Level",
+    y="Percentage of Students",
+    size="Percentage of Students",
+    color="Percentage of Students",
+    text="Dependency",
+    color_continuous_scale="Blues",
+    title="Dependency on AI in Learning",
+    hover_data={
+        "Dependency Level": True,
+        "Percentage of Students": True,
+        "Dependency": True,
+    },
+)
+
+# Customize the chart
+fig.update_traces(
+    textposition="top center",
+    marker=dict(opacity=0.7, line=dict(width=2))
+)
+fig.update_layout(
+    xaxis_title="Dependency Level",
+    yaxis_title="Percentage of Students (%)",
+    font=dict(size=14),
+    title_font=dict(size=18, family="Arial", color="black"),
+    coloraxis_colorbar=dict(title="Percentage (%)"),
+)
+st.subheader("Interactive Bubble Chart: Dependency on AI in Learning")
+st.plotly_chart(fig)
+
 
 
 
