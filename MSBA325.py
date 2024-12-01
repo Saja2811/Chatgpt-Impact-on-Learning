@@ -7,9 +7,9 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 st.title('Generative AI Usage Among Students')
-# Load the CSV directly from the file path
-csv_file_path = 'C:/Users/User/Desktop/MSBA325 Project/survey_clean.csv'  
+csv_file_path = 'survey_clean.csv'
 df = pd.read_csv(csv_file_path)
+
 
 # Problem Statement
 st.subheader("Understanding the Impact of AI Tools on Student Learning")
