@@ -23,46 +23,8 @@ Students are increasingly using generative AI tools like ChatGPT in their academ
 
 st.markdown("<h3 style='color:blue; font-size:35px;'>Exploratory Visualizations</h3>", unsafe_allow_html=True)
 
+
 #Visualization 1
-st.subheader("Dependency on ChatGPT")
-# Single select for Study Field
-study_fields = df["StudyField"].dropna().unique()
-selected_study_field = st.selectbox("Select Study Field:", options=study_fields)
-
-# Single select for Purpose of Use
-purposes = df["Purpose"].dropna().str.split(",").explode().unique()
-selected_purpose = st.selectbox("Select Purpose of Use:", options=purposes)
-# Filter the dataset based on selections
-filtered_data = df[
-    (df["StudyField"] == selected_study_field) &
-    (df["Purpose"].str.contains(selected_purpose, na=False))
-]
-# Check if filtered data is available
-if filtered_data.empty:
-    st.warning("No data available for the selected filters. Please try a different combination.")
-else:
-    # Bar chart of Dependency levels
-    dependency_counts = filtered_data["Dependency"].value_counts().reset_index()
-    dependency_counts.columns = ["Dependency Level", "Count"]
-
-    fig = px.bar(
-        dependency_counts,
-        x="Dependency Level",
-        y="Count",
-        title="Dependency Levels on AI", 
-        labels={"Dependency Level": "Dependency Level", "Count": "Number of Students"},
-        template="plotly_white",
-        color_discrete_sequence=["#1f77b4"],  # Set bars to dark blue
-    )
-    # Customize the layout to make the title bigger
-    fig.update_layout(
-        title_font_size=24,
-        title_x=0.5  # Center the title
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-
-#test
 st.subheader("Dependency on ChatGPT")
 
 # Add "Select All" option for Study Fields
