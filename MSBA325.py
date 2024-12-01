@@ -302,6 +302,10 @@ ax.set_ylabel("Count of Responses")
 ax.legend(title="Improvement in Understanding")
 ax.grid(False)
 st.pyplot(fig)
+st.markdown("""
+The chart shows the impact of AI usage on understanding, categorized by levels of improvement (1-5) and responses of 'Yes' or 'No' to using AI. Among students who use AI, the highest improvement level, 3, accounts for **~140 responses**, representing approximately **50%** of all responses in this group. Improvement levels 4 and 2 follow with **~80** and **~60 responses**, respectively. In contrast, students who do not use AI show significantly fewer responses across all improvement levels, with the highest being at level 2, totaling **~20 responses** or roughly **10%** of their group.
+""")
+
 
 
 # Visualization 10: Familiarity with AI by Education Level
