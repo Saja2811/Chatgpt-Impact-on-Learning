@@ -287,14 +287,19 @@ if selected_columns:
     )
     ax.grid(False)
 
-    st.
+    st.pyplot(fig)
 
-
-
-
-
-
-
+    # Optional: Summary insights
+    st.write(
+        """
+        ### Insights:
+        - **2021** shows relatively low and stable usage trends.
+        - **2022** displays moderate increases and some variability.
+        - **2023** exhibits the most significant peaks, reflecting increased adoption and reliance on AI tools.
+        """
+    )
+else:
+    st.warning("Please select at least one year to visualize.")
 
 
 #Visualization 8
