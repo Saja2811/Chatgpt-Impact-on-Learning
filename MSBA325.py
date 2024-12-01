@@ -88,6 +88,8 @@ dependency_labels = {
     4: "High Dependency",
     5: "Very High Dependency"
 }
+# Interactivity: allow user to adjust bubble sizes
+size_multiplier = st.slider("Adjust Bubble Size", min_value=5, max_value=30, value=15)
 
 # Extract levels, percentages, and labels
 levels = list(dependency_percentages.keys())
@@ -95,7 +97,7 @@ percentages = list(dependency_percentages.values())
 labels = [dependency_labels[level] for level in levels]
 
 # Normalize percentages for bubble sizes
-bubble_sizes = [p * 10 for p in percentages]  # Adjust size scale as needed
+bubble_sizes = [p * size_multiplier for p in percentages]
 
 # Create a bubble chart
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -103,17 +105,21 @@ scatter = ax.scatter(
     levels, percentages, s=bubble_sizes, c=percentages, cmap="Blues", alpha=0.7, edgecolors="w"
 )
 
-# Add labels to the bubbles
+# Add labels to the bubbles with bold and larger font
 for i, txt in enumerate(labels):
-    ax.text(levels[i], percentages[i] + 1, txt, ha="center", fontsize=9)
+    ax.text(levels[i], percentages[i] + 2, txt, ha="center", fontsize=10, fontweight="bold")
 
 # Set chart details
-ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
+ax.set_title("Dependency on AI in Learning", fontsize=16, fontweight="bold")
 ax.set_xlabel("Dependency Level", fontsize=12)
 ax.set_ylabel("Percentage of Students (%)", fontsize=12)
 ax.set_xticks(levels)
 ax.set_xticklabels([f"Level {level}" for level in levels])
-st.title("Bubble Chart: Dependency on AI in Learning")
+# Add grid for better readability
+ax.grid(True, linestyle='--', alpha=0.6)
+
+# Display the plot in Streamlit
+st.title("Enhanced Bubble Chart: Dependency on AI in Learning")
 st.pyplot(fig)
 
 
