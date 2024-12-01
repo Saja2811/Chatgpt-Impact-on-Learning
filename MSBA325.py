@@ -243,6 +243,42 @@ st.write(
     """
 )
 
+#test
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Sample dataset structure
+# df = pd.read_csv('your_dataset.csv')
+# Columns: ['Year', 'StudentIndex', 'HoursPerWeek']
+
+# User selects years
+years = df['Year'].unique()
+selected_years = st.multiselect("Select Years:", options=years, default=years)
+
+# Aggregate data by averaging hours per week for each year
+aggregated_data = df[df['Year'].isin(selected_years)].groupby(['Year']).mean().reset_index()
+
+# Plot the aggregated data
+fig, ax = plt.subplots(figsize=(8, 5))
+sns.lineplot(
+    data=aggregated_data,
+    x='Year',
+    y='HoursPerWeek',
+    marker="o",
+    ax=ax
+)
+ax.set_title("Average Hours per Week Using AI by Year", fontweight='bold')
+ax.set_xlabel("Year")
+ax.set_ylabel("Average Hours Per Week")
+st.pyplot(fig)
+
+# Optional: Display raw data statistics for context
+st.write(
+    df[df['Year'].isin(selected_years)].groupby(['Year']).describe()['HoursPerWeek']
+)
+
 
 #Visualization 8
 # Add row numbers as the index for visualization
