@@ -62,6 +62,57 @@ else:
     st.plotly_chart(fig, use_container_width=True)
 
 
+#test
+st.subheader("Dependency on ChatGPT")
+
+# Add "Select All" option for Study Fields
+study_fields = df["StudyField"].dropna().unique().tolist()
+study_fields.insert(0, "All")  # Add "All" option
+selected_study_fields = st.multiselect("Select Study Fields:", options=study_fields, default="All")
+
+# Add "Select All" option for Purposes
+purposes = df["Purpose"].dropna().str.split(",").explode().unique().tolist()
+purposes.insert(0, "All")  # Add "All" option
+selected_purposes = st.multiselect("Select Purposes of Use:", options=purposes, default="All")
+
+# Filter the dataset based on selections
+if "All" in selected_study_fields:
+    study_field_filter = df["StudyField"].notna()  # Include all valid values
+else:
+    study_field_filter = df["StudyField"].isin(selected_study_fields)
+
+if "All" in selected_purposes:
+    purpose_filter = df["Purpose"].notna()  # Include all valid values
+else:
+    purpose_filter = df["Purpose"].str.contains("|".join(selected_purposes), na=False)
+
+filtered_data = df[study_field_filter & purpose_filter]
+
+# Check if filtered data is available
+if filtered_data.empty:
+    st.warning("No data available for the selected filters. Please try a different combination.")
+else:
+    # Bar chart of Dependency levels
+    dependency_counts = filtered_data["Dependency"].value_counts().reset_index()
+    dependency_counts.columns = ["Dependency Level", "Count"]
+
+    fig = px.bar(
+        dependency_counts,
+        x="Dependency Level",
+        y="Count",
+        title="Dependency Levels on AI",
+        labels={"Dependency Level": "Dependency Level", "Count": "Number of Students"},
+        template="plotly_white",
+        color_discrete_sequence=["#1f77b4"],  # Set bars to dark blue
+    )
+    # Customize the layout to make the title bigger
+    fig.update_layout(
+        title_font_size=24,
+        title_x=0.5  # Center the title
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+
 # Visualization 2: Percentage of Students Using AI 
 st.subheader("AI Usage Among Students")
 # Count AI usage
