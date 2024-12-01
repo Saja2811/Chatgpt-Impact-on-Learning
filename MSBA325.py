@@ -21,7 +21,7 @@ st.markdown("""
 st.markdown("<h3 style='color:blue; font-size:35px;'>Exploratory Visualizations</h3>", unsafe_allow_html=True)
 
 
-#Visualization 1
+#Visualization 1.1
 st.subheader("Dependency on ChatGPT")
 
 # Add "Select All" option for Study Fields
@@ -72,66 +72,17 @@ else:
     st.plotly_chart(fig, use_container_width=True)
 
 
-#test 2
+#Visualization 1.2
 # Data for heatmap
+ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
 heatmap_data = [[48], [84], [108], [54], [5]]
 labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
 
-fig, ax = plt.subplots(figsize=(5, 7))
+fig, ax = plt.subplots(figsize=(4, 6))
 sns.heatmap(heatmap_data, annot=True, fmt="d", cmap="Blues", yticklabels=labels, cbar=False)
-ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
 ax.set_xlabel("Percentage of Students")
 ax.set_ylabel("Dependency Level")
 st.pyplot(fig)
-
-#test
-data = {
-    "Dependency Level": [1, 2, 3, 4, 5],
-    "Percentage of Students": [48, 84, 108, 54, 5],
-    "Dependency": [
-        "Very Low Dependency",
-        "Low Dependency",
-        "Moderate Dependency",
-        "High Dependency",
-        "Very High Dependency",
-    ],
-}
-
-df = pd.DataFrame(data)
-# Create an interactive bubble chart with hover functionality
-fig = px.scatter(
-    df,
-    x="Dependency Level",
-    y="Percentage of Students",
-    size="Percentage of Students",
-    color="Percentage of Students",
-    text="Dependency",
-    color_continuous_scale="Blues",
-    title="Dependency on AI in Learning",
-    hover_data={
-        "Dependency Level": True,
-        "Percentage of Students": True,
-        "Dependency": True,
-    },
-)
-
-# Customize the chart
-fig.update_traces(
-    textposition="top center",
-    marker=dict(opacity=0.7, line=dict(width=2))
-)
-fig.update_layout(
-    xaxis_title="Dependency Level",
-    yaxis_title="Percentage of Students (%)",
-    font=dict(size=14),
-    title_font=dict(size=18, family="Arial", color="black"),
-    coloraxis_colorbar=dict(title="Percentage (%)"),
-)
-st.subheader("Interactive Bubble Chart: Dependency on AI in Learning")
-st.plotly_chart(fig)
-
-
-
 
 
 # Visualization 2: Percentage of Students Using AI 
