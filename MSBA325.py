@@ -74,8 +74,10 @@ else:
 
 #Visualization 1.2
 # Data for heatmap
-heatmap_data = [[48], [84], [108], [54], [5]]
-labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
+#heatmap_data = [[48], [84], [108], [54], [5]]
+heatmap_data = [[5], [54], [108], [84], [48]]
+labels = ["Very High  Dependency", "High  Dependency", "Moderate  Dependency", "Low  Dependency", "Very Low  Dependency"]
+#labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
 
 fig, ax = plt.subplots(figsize=(4, 7))
 ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
