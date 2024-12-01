@@ -71,6 +71,52 @@ else:
     )
     st.plotly_chart(fig, use_container_width=True)
 
+#test
+dependency_percentages = {
+    1: 48,  # 10% of students have dependency level 1
+    2: 84,  # 20% have dependency level 2
+    3: 108,  # 30% have dependency level 3
+    4: 54,  # 25% have dependency level 4
+    5: 5   # 15% have dependency level 5
+}
+
+# Labels for dependency levels
+dependency_labels = {
+    1: "Very Low Dependency",
+    2: "Low Dependency",
+    3: "Moderate Dependency",
+    4: "High Dependency",
+    5: "Very High Dependency"
+}
+
+# Extract levels, percentages, and labels
+levels = list(dependency_percentages.keys())
+percentages = list(dependency_percentages.values())
+labels = [dependency_labels[level] for level in levels]
+
+# Normalize percentages for bubble sizes
+bubble_sizes = [p * 10 for p in percentages]  # Adjust size scale as needed
+
+# Create a bubble chart
+fig, ax = plt.subplots(figsize=(10, 6))
+scatter = ax.scatter(
+    levels, percentages, s=bubble_sizes, c=percentages, cmap="Blues", alpha=0.7, edgecolors="w"
+)
+
+# Add labels to the bubbles
+for i, txt in enumerate(labels):
+    ax.text(levels[i], percentages[i] + 1, txt, ha="center", fontsize=9)
+
+# Set chart details
+ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
+ax.set_xlabel("Dependency Level", fontsize=12)
+ax.set_ylabel("Percentage of Students (%)", fontsize=12)
+ax.set_xticks(levels)
+ax.set_xticklabels([f"Level {level}" for level in levels])
+st.title("Bubble Chart: Dependency on AI in Learning")
+st.pyplot(fig)
+
+
 
 # Visualization 2: Percentage of Students Using AI 
 st.subheader("AI Usage Among Students")
