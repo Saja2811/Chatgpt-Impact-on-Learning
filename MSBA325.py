@@ -15,10 +15,7 @@ df = pd.read_csv(csv_file_path)
 st.subheader("Understanding the Impact of AI Tools on Student Learning")
 st.markdown("""
 ### The Problem:
-Students are increasingly using generative AI tools like ChatGPT in their academic learning. However, there is uncertainty about whether these tools:
-- Improve their learning.
-- Affect their critical thinking skills.
-- Create challenges like overreliance or misinformation.
+ Students are increasingly integrating generative AI tools such as ChatGPT into their academic learning. However, it remains unclear how this trend affects their learning outcomes, critical thinking skills, and reliance on AI-generated content. There is a lack of understanding of whether these tools contribute to improved academic performance or create challenges, such as dependence on AI, misinformation, or ethical dilemmas in learning.
 """)
 
 st.markdown("<h3 style='color:blue; font-size:35px;'>Exploratory Visualizations</h3>", unsafe_allow_html=True)
