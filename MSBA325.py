@@ -172,6 +172,31 @@ st.write(
     """
 )
 
+#test
+# Calculate the frequency distribution and sort it
+frequency_counts = df['Frequency'].value_counts()
+
+# Generate shades of blue and purple
+colors = sns.color_palette('Purples', len(frequency_counts))[::-1]  # Darker shades for higher frequencies
+
+# Create the pie chart
+fig, ax = plt.subplots(figsize=(3, 3))
+ax.pie(
+    frequency_counts, 
+    labels=frequency_counts.index, 
+    autopct='%1.1f%%', 
+    startangle=120, 
+    textprops={'fontsize': 6}, 
+    colors=colors
+)
+ax.set_title("Distribution of AI Usage Frequency", fontweight='bold')
+st.pyplot(fig)
+st.write(
+    """
+    ### Insights:
+    The pie chart shows the distribution of AI usage frequency among students. The majority of students interact with AI frequently, with **42.3%** using it daily and **40.9%** using it weekly, together comprising over **80%** of the total. Less frequent usage is much lower, with only **10.4%** using AI monthly and **6.4%** using it rarely. This indicates that AI has become a routine tool for most students while learning.
+    """
+)
 
 
 # Visualization 6: Average Hours per Week Using AI (2021-2023)
