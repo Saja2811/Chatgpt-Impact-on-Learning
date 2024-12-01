@@ -89,9 +89,6 @@ dependency_labels = {
     4: "High Dependency",
     5: "Very High Dependency"
 }
-# Interactivity: allow user to adjust bubble sizes
-#size_multiplier = st.slider("Adjust Bubble Size", min_value=5, max_value=30, value=15)
-
 # Extract levels, percentages, and labels
 levels = list(dependency_percentages.keys())
 percentages = list(dependency_percentages.values())
@@ -120,6 +117,19 @@ ax.set_xticklabels([f"Level {level}" for level in levels])
 #ax.grid(True, linestyle='--', alpha=0.6)
 
 st.pyplot(fig)
+
+#test 2
+# Data for heatmap
+heatmap_data = [[48], [84], [108], [54], [5]]
+labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
+
+fig, ax = plt.subplots(figsize=(6, 8))
+sns.heatmap(heatmap_data, annot=True, fmt="d", cmap="Blues", yticklabels=labels, cbar=False)
+ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
+ax.set_xlabel("Percentage of Students")
+ax.set_ylabel("Dependency Level")
+st.pyplot(fig)
+
 
 
 
