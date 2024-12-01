@@ -199,6 +199,13 @@ ax.set_xlabel("Year")
 ax.set_ylabel("Average Hours")
 ax.grid(False)
 st.pyplot(fig)
+st.write("""
+The chart illustrates the trend of average hours per week spent using AI tools by students from 2021 to 2023. 
+- In 2021, the average was 1.8 hours per week, reflecting the early stages of AI tool usage.
+- In 2022, usage rose to 2.7 hours per week, showing an increased reliance on AI tools.
+- By 2023, the average hours reached 3.2 hours per week, indicating a continuous upward trend in student engagement with AI over time.
+This steady increase in usage suggests that students are increasingly incorporating AI tools like ChatGPT into their academic activities.
+""")
 
 
 # Visualization 7: Hours per Week Using AI (2021-2023) for Each Student
