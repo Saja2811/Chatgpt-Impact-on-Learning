@@ -233,7 +233,7 @@ df[usage_columns] = df[usage_columns].apply(pd.to_numeric, errors='coerce')
 selected_years = st.multiselect(
     "Select the year(s) to visualize:", 
     options=['2021', '2022', '2023'], 
-    default=['2021', '2022', '2023']
+    default=['2021']
 )
 # Filter the data based on the selected years
 selected_columns = [f'HoursPW{year}' for year in selected_years]
