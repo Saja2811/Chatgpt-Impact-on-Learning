@@ -173,48 +173,8 @@ st.write(
 
 
 # Visualization 6: Average Hours per Week Using AI (2021-2023)
-st.subheader("Average Hours per Week Using AI (2021-2023)")
 # Define the columns of interest
 usage_columns = ['HoursPW2021', 'HoursPW2022', 'HoursPW2023']
-
-# Ensure the columns are numeric (convert if necessary)
-df[usage_columns] = df[usage_columns].apply(pd.to_numeric, errors='coerce')
-
-# Calculate the mean for each year
-df_usage = df[usage_columns].mean()
-# Create the line chart
-fig, ax = plt.subplots(figsize=(8, 6))
-sns.lineplot(
-    x=df_usage.index, 
-    y=df_usage.values, 
-    marker='o', 
-    color='b', 
-    linestyle='-', 
-    linewidth=2, 
-    markersize=8,
-    ax=ax
-)
-ax.set_title("Average Hours per Week Using AI (2021-2024)", fontweight='bold')
-ax.set_xlabel("Year")
-ax.set_ylabel("Average Hours")
-ax.grid(False)
-st.pyplot(fig)
-st.write("""
-The chart illustrates the trend of average hours per week spent using AI tools by students from 2021 to 2023. 
-- In 2021, the average was 1.8 hours per week, reflecting the early stages of AI tool usage.
-- In 2022, usage rose to 2.7 hours per week, showing an increased reliance on AI tools.
-- By 2023, the average hours reached 3.2 hours per week, indicating a continuous upward trend in student engagement with AI over time.
-This steady increase in usage suggests that students are increasingly incorporating AI tools like ChatGPT into their academic activities.
-""")
-
-# test
-import streamlit as st
-import pandas as pd
-import plotly.graph_objects as go
-
-# Define the columns of interest
-usage_columns = ['HoursPW2021', 'HoursPW2022', 'HoursPW2023']
-
 # Ensure the columns are numeric (convert if necessary)
 df[usage_columns] = df[usage_columns].apply(pd.to_numeric, errors='coerce')
 
@@ -235,8 +195,6 @@ fig.add_trace(go.Scatter(
     text=df_usage.values,  # Text displayed on hover
     hoverinfo='x+y+text'  # Display x, y values and the text on hover
 ))
-
-# Update layout
 fig.update_layout(
     title='Average Hours per Week Using AI (2021-2024)',
     xaxis_title='Year',
@@ -244,11 +202,7 @@ fig.update_layout(
     template='plotly_dark',
     hovermode='closest'
 )
-
-# Display the plot in Streamlit
 st.plotly_chart(fig)
-
-# Add the analysis of the chart
 st.write("""
 The chart illustrates the trend of average hours per week spent using AI tools by students from 2021 to 2023. 
 - In 2021, the average was 1.8 hours per week, reflecting the early stages of AI tool usage.
@@ -290,53 +244,6 @@ if selected_columns:
     st.pyplot(fig)
 else:
     st.warning("Please select at least one year to visualize.")
-st.write(
-    """
-    ### 
-    This chart compares weekly hours spent using AI tools by students (2021-2023), showing a clear increase in variability and intensity of usage over time. In 2021, usage was consistent and relatively low, with minimal fluctuations. By contrast, 2022 and especially 2023 display frequent and sharp spikes, indicating that certain students spent significantly more time on AI tools, likely reflecting increased adoption, integration, or reliance on such technologies. The extreme peaks in 2023 suggest a growing trend in AI utilization, potentially driven by new tools, trends, or educational requirements.
-    """
-)
-
-#test
-# Visualization 7: Hours per Week Using AI (2021-2023) for Each Student
-st.subheader("Interactive Visualization: Hours per Week Using AI (2021-2023)")
-
-# Define the columns of interest
-usage_columns = ['HoursPW2021', 'HoursPW2022', 'HoursPW2023']
-
-# Ensure the columns are numeric (convert if necessary)
-df[usage_columns] = df[usage_columns].apply(pd.to_numeric, errors='coerce')
-
-# Let the user select the year(s) to visualize with a unique key
-selected_years = st.multiselect(
-    "Select the year(s) to visualize:", 
-    options=['2021', '2022', '2023'], 
-    default=['2021', '2022', '2023'],
-    key="year_selection"  # Assigning a unique key
-)
-
-# Filter the data based on the selected years
-selected_columns = [f'HoursPW{year}' for year in selected_years]
-
-# Check if any years are selected
-if selected_columns:
-    # Create the line plot
-    fig, ax = plt.subplots(figsize=(10, 8))
-    sns.lineplot(data=df[selected_columns], palette="Set1", linewidth=2, ax=ax)
-    ax.set_title("Hours per Week Using AI for Selected Years", fontweight='bold')
-    ax.set_xlabel("Student Index")
-    ax.set_ylabel("Hours per Week")
-    ax.legend(
-        title="Year", 
-        labels=selected_years, 
-        loc="upper left", 
-        frameon=False
-    )
-    ax.grid(False) 
-    st.pyplot(fig)
-else:
-    st.warning("Please select at least one year to visualize.")
-
 st.write(
     """
     ### 
@@ -484,7 +391,7 @@ st.write(
     """
 )
 
-#Visualizaton
+#Visualizaton 12
 # Static data extracted from the dataset
 tool_usage_counts = {
     'ChatGPT': 311,
