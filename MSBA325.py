@@ -72,6 +72,7 @@ else:
     st.plotly_chart(fig, use_container_width=True)
 
 #test
+st.subheader("Enhanced Bubble Chart: Dependency on AI in Learning")
 dependency_percentages = {
     1: 48,  # 10% of students have dependency level 1
     2: 84,  # 20% have dependency level 2
@@ -89,7 +90,7 @@ dependency_labels = {
     5: "Very High Dependency"
 }
 # Interactivity: allow user to adjust bubble sizes
-size_multiplier = st.slider("Adjust Bubble Size", min_value=5, max_value=30, value=15)
+#size_multiplier = st.slider("Adjust Bubble Size", min_value=5, max_value=30, value=15)
 
 # Extract levels, percentages, and labels
 levels = list(dependency_percentages.keys())
@@ -97,7 +98,7 @@ percentages = list(dependency_percentages.values())
 labels = [dependency_labels[level] for level in levels]
 
 # Normalize percentages for bubble sizes
-bubble_sizes = [p * size_multiplier for p in percentages]
+bubble_sizes = [p * 30 for p in percentages]
 
 # Create a bubble chart
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -116,10 +117,8 @@ ax.set_ylabel("Percentage of Students (%)", fontsize=12)
 ax.set_xticks(levels)
 ax.set_xticklabels([f"Level {level}" for level in levels])
 # Add grid for better readability
-ax.grid(True, linestyle='--', alpha=0.6)
+#ax.grid(True, linestyle='--', alpha=0.6)
 
-# Display the plot in Streamlit
-st.title("Enhanced Bubble Chart: Dependency on AI in Learning")
 st.pyplot(fig)
 
 
