@@ -246,60 +246,49 @@ st.write(
 #test
 # Visualization 7: Hours per Week Using AI (2021-2023) for Each Student
 st.subheader("Interactive Visualization: Hours per Week Using AI (2021-2023)")
+
 # Define the columns of interest
 usage_columns = ['HoursPW2021', 'HoursPW2022', 'HoursPW2023']
 
-# Ensure the columns are numeric
+# Ensure the columns are numeric (convert if necessary)
 df[usage_columns] = df[usage_columns].apply(pd.to_numeric, errors='coerce')
 
-# Let the user select the year(s) to visualize
+# Let the user select the year(s) to visualize with a unique key
 selected_years = st.multiselect(
-    "Select the year(s) to visualize:",
-    options=['2021', '2022', '2023'],
-    default=['2021', '2022', '2023']
+    "Select the year(s) to visualize:", 
+    options=['2021', '2022', '2023'], 
+    default=['2021', '2022', '2023'],
+    key="year_selection"  # Assigning a unique key
 )
 
 # Filter the data based on the selected years
 selected_columns = [f'HoursPW{year}' for year in selected_years]
 
+# Check if any years are selected
 if selected_columns:
-    # Prepare data for smoothing (rolling mean)
-    smoothed_df = df[selected_columns].rolling(window=10, min_periods=1).mean()
-    
-    # Create the smoothed line plot
+    # Create the line plot
     fig, ax = plt.subplots(figsize=(10, 8))
-    for column, year in zip(selected_columns, selected_years):
-        sns.lineplot(
-            data=smoothed_df[column],
-            label=year,
-            linewidth=2,
-            ax=ax
-        )
-
-    # Customizing the plot
-    ax.set_title("Smoothed Hours per Week Using AI for Selected Years", fontweight='bold')
+    sns.lineplot(data=df[selected_columns], palette="Set1", linewidth=2, ax=ax)
+    ax.set_title("Hours per Week Using AI for Selected Years", fontweight='bold')
     ax.set_xlabel("Student Index")
-    ax.set_ylabel("Smoothed Hours per Week")
+    ax.set_ylabel("Hours per Week")
     ax.legend(
-        title="Year",
-        loc="upper left",
+        title="Year", 
+        labels=selected_years, 
+        loc="upper left", 
         frameon=False
     )
-    ax.grid(False)
-
+    ax.grid(False) 
     st.pyplot(fig)
-
-    # Optional: Summary insights
-    st.write(
-        """
-        ### Insights:
-        - **2021** shows relatively low and stable usage trends.
-        - **2022** displays moderate increases and some variability.
-        - **2023** exhibits the most significant peaks, reflecting increased adoption and reliance on AI tools.
-        """
-    )
 else:
     st.warning("Please select at least one year to visualize.")
+
+st.write(
+    """
+    ### 
+    This chart compares weekly hours spent using AI tools by students (2021-2023), showing a clear increase in variability and intensity of usage over time. In 2021, usage was consistent and relatively low, with minimal fluctuations. By contrast, 2022 and especially 2023 display frequent and sharp spikes, indicating that certain students spent significantly more time on AI tools, likely reflecting increased adoption, integration, or reliance on such technologies. The extreme peaks in 2023 suggest a growing trend in AI utilization, potentially driven by new tools, trends, or educational requirements.
+    """
+)
 
 
 #Visualization 8
