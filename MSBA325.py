@@ -244,40 +244,57 @@ st.write(
 )
 
 #test
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+# Visualization 7: Hours per Week Using AI (2021-2023) for Each Student
+st.subheader("Interactive Visualization: Hours per Week Using AI (2021-2023)")
+# Define the columns of interest
+usage_columns = ['HoursPW2021', 'HoursPW2022', 'HoursPW2023']
 
-# Sample dataset structure
-# df = pd.read_csv('your_dataset.csv')
-# Columns: ['Year', 'StudentIndex', 'HoursPerWeek']
+# Ensure the columns are numeric
+df[usage_columns] = df[usage_columns].apply(pd.to_numeric, errors='coerce')
 
-# User selects years
-years = df['Year'].unique()
-selected_years = st.multiselect("Select Years:", options=years, default=years)
-
-# Aggregate data by averaging hours per week for each year
-aggregated_data = df[df['Year'].isin(selected_years)].groupby(['Year']).mean().reset_index()
-
-# Plot the aggregated data
-fig, ax = plt.subplots(figsize=(8, 5))
-sns.lineplot(
-    data=aggregated_data,
-    x='Year',
-    y='HoursPerWeek',
-    marker="o",
-    ax=ax
+# Let the user select the year(s) to visualize
+selected_years = st.multiselect(
+    "Select the year(s) to visualize:",
+    options=['2021', '2022', '2023'],
+    default=['2021', '2022', '2023']
 )
-ax.set_title("Average Hours per Week Using AI by Year", fontweight='bold')
-ax.set_xlabel("Year")
-ax.set_ylabel("Average Hours Per Week")
-st.pyplot(fig)
 
-# Optional: Display raw data statistics for context
-st.write(
-    df[df['Year'].isin(selected_years)].groupby(['Year']).describe()['HoursPerWeek']
-)
+# Filter the data based on the selected years
+selected_columns = [f'HoursPW{year}' for year in selected_years]
+
+if selected_columns:
+    # Prepare data for smoothing (rolling mean)
+    smoothed_df = df[selected_columns].rolling(window=10, min_periods=1).mean()
+    
+    # Create the smoothed line plot
+    fig, ax = plt.subplots(figsize=(10, 8))
+    for column, year in zip(selected_columns, selected_years):
+        sns.lineplot(
+            data=smoothed_df[column],
+            label=year,
+            linewidth=2,
+            ax=ax
+        )
+
+    # Customizing the plot
+    ax.set_title("Smoothed Hours per Week Using AI for Selected Years", fontweight='bold')
+    ax.set_xlabel("Student Index")
+    ax.set_ylabel("Smoothed Hours per Week")
+    ax.legend(
+        title="Year",
+        loc="upper left",
+        frameon=False
+    )
+    ax.grid(False)
+
+    st.
+
+
+
+
+
+
+
 
 
 #Visualization 8
