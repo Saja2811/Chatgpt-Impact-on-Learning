@@ -77,7 +77,7 @@ else:
 heatmap_data = [[48], [84], [108], [54], [5]]
 labels = ["Very Low  Dependency", "Low  Dependency", "Moderate  Dependency", "High  Dependency", "Very High  Dependency"]
 
-fig, ax = plt.subplots(figsize=(4, 6))
+fig, ax = plt.subplots(figsize=(4, 7))
 ax.set_title("Dependency on AI in Learning", fontsize=14, fontweight="bold")
 sns.heatmap(heatmap_data, annot=True, fmt="d", cmap="Blues", yticklabels=labels, cbar=False)
 ax.set_xlabel("Percentage of Students")
