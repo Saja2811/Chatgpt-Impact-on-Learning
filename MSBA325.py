@@ -152,33 +152,9 @@ st.pyplot(fig)
 # Visualization 5: Distribution of AI Usage Frequency
 # Calculate the frequency distribution and sort it
 frequency_counts = df['Frequency'].value_counts()
-# Generate shades of red
-colors = sns.color_palette('Reds', len(frequency_counts))[::-1]  # Reverse for darker reds for higher frequencies
-fig, ax = plt.subplots(figsize=(3, 3))
-ax.pie(
-    frequency_counts, 
-    labels=frequency_counts.index, 
-    autopct='%1.1f%%', 
-    startangle=120,
-    textprops={'fontsize': 6}, 
-    colors=colors
-)
-ax.set_title("Distribution of AI Usage Frequency", fontweight='bold')
-st.pyplot(fig)
-st.write(
-    """
-    ### 
-    The pie chart shows the distribution of AI usage frequency among students. The majority of students interact with AI frequently, with 42.3% using it daily and 40.9% using it weekly, together comprising over 80% of the total. Less frequent usage is much lower, with only 10.4% using AI monthly and 6.4% using it rarely. This indicates that AI has become a routine tool for most students while learning.
-    """
-)
-
-#test
-# Calculate the frequency distribution and sort it
-frequency_counts = df['Frequency'].value_counts()
 
 # Generate shades of blue and purple
 colors = sns.color_palette('Purples', len(frequency_counts))[::-1]  # Darker shades for higher frequencies
-
 # Create the pie chart
 fig, ax = plt.subplots(figsize=(3, 3))
 ax.pie(
