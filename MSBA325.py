@@ -271,7 +271,7 @@ This steady increase in usage suggests that students are increasingly incorporat
 """)
 
 # Visualization 7:Interactive Stacked Bar Chart: Hours per Week vs TimeStudying (2021-2023)"
-st.title("Interactive Stacked Bar Chart: Hours per Week vs TimeStudying (2021-2023)")
+st.subheader("Interactive Stacked Bar Chart: Hours per Week vs TimeStudying (2021-2023)")
 
 # Let the user choose the years to display
 selected_years = st.multiselect(
@@ -319,14 +319,10 @@ if len(selected_years) > 0:
     ax.set_xlabel("Time Studying", fontsize=14)
     ax.set_ylabel("Total Hours per Week", fontsize=14)
     ax.legend(title="Year", fontsize=12, title_fontsize=12)
-    ax.grid(visible=True, linestyle='--', alpha=0.5)
+    ax.grid(visible=False)
     st.pyplot(fig)
 else:
     st.warning("Please select at least one year to visualize.")
-
-
-
-
 
 
 
