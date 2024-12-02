@@ -6,6 +6,18 @@ import plotly.graph_objects as go
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+# Set page configuration
+st.set_page_config(
+    page_title="Generative AI Usage Among Students",
+    layout="wide"
+)
+
+# Allow embedding by modifying the headers
+from streamlit.web.server.websocket_headers import _make_headers
+_make_headers._make_headers = lambda *args, **kwargs: [
+    ('Content-Security-Policy', "frame-ancestors 'self' https://* http://*")
+]
+
 st.title('Generative AI Usage Among Students')
 csv_file_path = 'survey_clean.csv'
 df = pd.read_csv(csv_file_path)
