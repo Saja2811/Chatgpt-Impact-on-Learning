@@ -73,17 +73,40 @@ else:
 
 
 #test
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+# Simulated dataset (replace with your actual dataset)
+data = {
+    "StudyField": ["Engineering", "Arts", "Engineering", "Science", "Arts", "Science"],
+    "Purpose": [
+        "Learning,Research",
+        "Research",
+        "Learning",
+        "Research,Collaboration",
+        "Learning,Collaboration",
+        "Research",
+    ],
+    "Dependency": [5, 3, 4, 2, 1, 3],
+}
+df = pd.DataFrame(data)
+
 st.subheader("Dependency on AI")
 
 # Add "Select All" option for Study Fields
 study_fields = df["StudyField"].dropna().unique().tolist()
 study_fields.insert(0, "All")  # Add "All" option
-selected_study_fields = st.multiselect("Select Study Fields:", options=study_fields, default="All")
+selected_study_fields = st.multiselect(
+    "Select Study Fields:", options=study_fields, default="All", key="study_fields"
+)
 
 # Add "Select All" option for Purposes
 purposes = df["Purpose"].dropna().str.split(",").explode().unique().tolist()
 purposes.insert(0, "All")  # Add "All" option
-selected_purposes = st.multiselect("Select Purposes of Use:", options=purposes, default="All")
+selected_purposes = st.multiselect(
+    "Select Purposes of Use:", options=purposes, default="All", key="purposes"
+)
 
 # Filter the dataset based on selections
 if "All" in selected_study_fields:
@@ -120,6 +143,7 @@ else:
         labels={"Dependency Level": "Dependency Level", "Count": "Number of Students"},
         template="plotly_white",
     )
+
     # Apply the custom colors
     fig.update_traces(marker_color=dependency_counts["Color"])
 
@@ -128,6 +152,7 @@ else:
         title_font_size=24,
         title_x=0.5,  # Center the title
     )
+
     st.plotly_chart(fig, use_container_width=True)
 
 
