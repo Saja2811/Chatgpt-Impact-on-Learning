@@ -270,61 +270,7 @@ The chart illustrates the trend of average hours per week spent using AI tools b
 This steady increase in usage suggests that students are increasingly incorporating AI tools like ChatGPT into their academic activities.
 """)
 
-# Visualization 7:Interactive Stacked Bar Chart: Hours per Week vs TimeStudying (2021-2023)"
-st.subheader("Interactive Stacked Bar Chart: Hours per Week vs TimeStudying (2021-2023)")
-
-# Let the user choose the years to display
-selected_years = st.multiselect(
-    "Select the year(s) to include in the chart:", 
-    options=['2021', '2022', '2023'], 
-    default=['2021', '2022', '2023']
-)
-
-# Filter the data based on selected years
-filtered_data = df[['TimeStudying'] + [f'HoursPW{year}' for year in selected_years]]
-
-# Check if any years are selected
-if len(selected_years) > 0:
-    # Melt the dataframe for easier plotting with Seaborn
-    melted_df = pd.melt(
-        filtered_data, 
-        id_vars='TimeStudying', 
-        var_name='Year', 
-        value_name='Hours'
-    )
-    melted_df['Year'] = melted_df['Year'].str.extract(r'(\d{4})')  # Extract year from column names
-
-    # Pivot table for stacked bar chart
-    pivot_df = melted_df.pivot_table(
-        index='TimeStudying', 
-        columns='Year', 
-        values='Hours', 
-        aggfunc='sum'
-    ).fillna(0)
-
-    # Define color mapping
-    color_mapping = {'2021': 'grey', '2022': 'blue', '2023': 'darkblue'}
-    colors = [color_mapping[year] for year in selected_years]
-    # Create the stacked bar chart
-    fig, ax = plt.subplots(figsize=(10, 6))
-    pivot_df[selected_years].plot(
-        kind='bar', 
-        stacked=True, 
-        color=colors, 
-        ax=ax
-    )
-    
-    # Customize the plot
-    ax.set_title("Hours per Week vs TimeStudying (2021-2023)", fontsize=16, fontweight='bold')
-    ax.set_xlabel("Time Studying", fontsize=14)
-    ax.set_ylabel("Total Hours per Week", fontsize=14)
-    ax.legend(title="Year", fontsize=12, title_fontsize=12)
-    ax.grid(visible=False)
-    st.pyplot(fig)
-else:
-    st.warning("Please select at least one year to visualize.")
-
-#test 2
+# Visualization 7:Interactive Stacked Bar Chart
 st.subheader("Interactive Stacked Bar Chart: Average Hours per Week vs TimeStudying (2021-2023)")
 # Let the user choose the years to display
 selected_years = st.multiselect(
