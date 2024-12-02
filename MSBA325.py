@@ -6,10 +6,6 @@ import plotly.graph_objects as go
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
-# Set CORS to allow embedding
-st.set_page_config(page_title="Generative AI Usage Among Students", layout="wide")
-
 st.title('Generative AI Usage Among Students')
 csv_file_path = 'survey_clean.csv'
 df = pd.read_csv(csv_file_path)
