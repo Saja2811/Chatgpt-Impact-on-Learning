@@ -326,12 +326,12 @@ else:
 
 #test 2
 st.subheader("Interactive Stacked Bar Chart: Average Hours per Week vs TimeStudying (2021-2023)")
-
 # Let the user choose the years to display
 selected_years = st.multiselect(
-    "Select the year(s) to include in the chart:",
-    options=['2021', '2022', '2023'],
-    default=['2021', '2022', '2023']
+    "Select the year(s) to include in the chart:", 
+    options=['2021', '2022', '2023'], 
+    default=['2021', '2022', '2023'],
+    key="unique_multiselect_key"  # Add a unique key
 )
 
 # Filter data based on selected years
@@ -383,6 +383,10 @@ if len(selected_years) > 0:
     st.plotly_chart(fig, use_container_width=True)
 else:
     st.warning("Please select at least one year to visualize.")
+
+
+
+
 
 
 
