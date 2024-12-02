@@ -156,17 +156,38 @@ df['SimplifiedPurpose'] = df['Purpose'].apply(
               'Concept Understanding' if 'Concept' in x else
               'Other'
 )
+
 # Count occurrences of each simplified purpose
 purpose_counts = df['SimplifiedPurpose'].value_counts()
 st.title("Purpose of Using AI Tools")
+
+# Display the top 5 categories
+top_purposes = purpose_counts.head(5)
 # Plot the data
-top_purposes = purpose_counts.head(5)  # Display only the top 5 categories
-# Plot the bar chart using Matplotlib
 fig, ax = plt.subplots(figsize=(8, 6))
-sns.barplot(x=top_purposes.values, y=top_purposes.index, palette="viridis", ax=ax)
+# Highlight top two bars in blue, others in grey
+colors = ['blue' if i < 2 else 'grey' for i in range(len(top_purposes))]
+# Remove borders using edgecolor
+sns.barplot(
+    x=top_purposes.values,
+    y=top_purposes.index,
+    palette=colors,
+    ax=ax,
+    edgecolor=None  # Remove borders
+)
+# Add labels to bars with bold labels for the top 2
+for i, (value, bar) in enumerate(zip(top_purposes.values, ax.containers[0])):
+    label = f"{value}"
+    if i < 2:
+        ax.bar_label([bar], labels=[label], fmt='%d', padding=3, fontsize=12, weight='bold')  # Bold for top 2
+    else:
+        ax.bar_label([bar], labels=[label], fmt='%d', padding=3, fontsize=10)  # Regular for others
+# Customize chart aesthetics
 ax.set_title("Most Common Purposes for Using AI", fontweight='bold')
 ax.set_xlabel("Number of Students")
 ax.set_ylabel("Purpose")
+ax.spines['top'].set_visible(False)  # Remove top border
+ax.spines['right'].set_visible(False)  # Remove right border
 st.pyplot(fig)
 
 
