@@ -324,6 +324,66 @@ if len(selected_years) > 0:
 else:
     st.warning("Please select at least one year to visualize.")
 
+#test 2
+st.subheader("Interactive Stacked Bar Chart: Average Hours per Week vs TimeStudying (2021-2023)")
+
+# Let the user choose the years to display
+selected_years = st.multiselect(
+    "Select the year(s) to include in the chart:",
+    options=['2021', '2022', '2023'],
+    default=['2021', '2022', '2023']
+)
+
+# Filter data based on selected years
+if len(selected_years) > 0:
+    # Select only relevant columns
+    filtered_data = df[['TimeStudying'] + [f'HoursPW{year}' for year in selected_years]]
+
+    # Melt the dataframe for easier aggregation
+    melted_df = pd.melt(
+        filtered_data,
+        id_vars='TimeStudying',
+        var_name='Year',
+        value_name='Hours'
+    )
+    melted_df['Year'] = melted_df['Year'].str.extract(r'(\d{4})')  # Extract year from column names
+
+    # Calculate average hours per week for each TimeStudying category and year
+    avg_df = melted_df.groupby(['TimeStudying', 'Year'])['Hours'].mean().reset_index()
+
+    # Create a stacked bar chart using Plotly
+    fig = go.Figure()
+
+    # Define color mapping
+    color_mapping = {'2021': 'grey', '2022': 'blue', '2023': 'darkblue'}
+
+    for year in selected_years:
+        year_data = avg_df[avg_df['Year'] == year]
+        fig.add_trace(
+            go.Bar(
+                x=year_data['TimeStudying'],
+                y=year_data['Hours'],
+                name=f"Year {year}",
+                marker_color=color_mapping[year],
+                text=year_data['Hours'],  # Hover text
+                texttemplate='%{text:.2f}',  # Format hover values
+                textposition="auto"
+            )
+        )
+
+    # Customize layout
+    fig.update_layout(
+        barmode='stack',
+        title="Average Hours per Week vs TimeStudying (2021-2023)",
+        xaxis_title="Time Studying",
+        yaxis_title="Average Hours per Week",
+        legend_title="Year",
+        template="plotly_white"
+    )
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.warning("Please select at least one year to visualize.")
+
 
 
 #Visualization 8
