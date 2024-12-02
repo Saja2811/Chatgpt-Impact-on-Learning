@@ -73,25 +73,6 @@ else:
 
 
 #test
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-
-# Simulated dataset (replace with your actual dataset)
-data = {
-    "StudyField": ["Engineering", "Arts", "Engineering", "Science", "Arts", "Science"],
-    "Purpose": [
-        "Learning,Research",
-        "Research",
-        "Learning",
-        "Research,Collaboration",
-        "Learning,Collaboration",
-        "Research",
-    ],
-    "Dependency": [5, 3, 4, 2, 1, 3],
-}
-df = pd.DataFrame(data)
-
 st.subheader("Dependency on AI")
 
 # Add "Select All" option for Study Fields
