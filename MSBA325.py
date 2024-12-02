@@ -72,6 +72,65 @@ else:
     st.plotly_chart(fig, use_container_width=True)
 
 
+#test
+st.subheader("Dependency on AI")
+
+# Add "Select All" option for Study Fields
+study_fields = df["StudyField"].dropna().unique().tolist()
+study_fields.insert(0, "All")  # Add "All" option
+selected_study_fields = st.multiselect("Select Study Fields:", options=study_fields, default="All")
+
+# Add "Select All" option for Purposes
+purposes = df["Purpose"].dropna().str.split(",").explode().unique().tolist()
+purposes.insert(0, "All")  # Add "All" option
+selected_purposes = st.multiselect("Select Purposes of Use:", options=purposes, default="All")
+
+# Filter the dataset based on selections
+if "All" in selected_study_fields:
+    study_field_filter = df["StudyField"].notna()  # Include all valid values
+else:
+    study_field_filter = df["StudyField"].isin(selected_study_fields)
+
+if "All" in selected_purposes:
+    purpose_filter = df["Purpose"].notna()  # Include all valid values
+else:
+    purpose_filter = df["Purpose"].str.contains("|".join(selected_purposes), na=False)
+
+filtered_data = df[study_field_filter & purpose_filter]
+
+# Check if filtered data is available
+if filtered_data.empty:
+    st.warning("No data available for the selected filters. Please try a different combination.")
+else:
+    # Bar chart of Dependency levels
+    dependency_counts = filtered_data["Dependency"].value_counts().reset_index()
+    dependency_counts.columns = ["Dependency Level", "Count"]
+
+    # Highlight the highest bar
+    max_count = dependency_counts["Count"].max()
+    dependency_counts["Color"] = dependency_counts["Count"].apply(
+        lambda x: "#1f77b4" if x == max_count else "#d3d3d3"
+    )  # Blue for max, grey for others
+
+    fig = px.bar(
+        dependency_counts,
+        x="Dependency Level",
+        y="Count",
+        title="Dependency Levels on AI",
+        labels={"Dependency Level": "Dependency Level", "Count": "Number of Students"},
+        template="plotly_white",
+    )
+    # Apply the custom colors
+    fig.update_traces(marker_color=dependency_counts["Color"])
+
+    # Customize the layout to make the title bigger
+    fig.update_layout(
+        title_font_size=24,
+        title_x=0.5,  # Center the title
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+
 #Visualization 1.2
 # Data for heatmap
 heatmap_data = [[5], [54], [108], [84], [48]]
@@ -161,8 +220,8 @@ st.pyplot(fig)
 # Calculate the frequency distribution and sort it
 frequency_counts = df['Frequency'].value_counts()
 
-# Generate shades of blue and purple
-colors = sns.color_palette('Purples', len(frequency_counts))[::-1]  # Darker shades for higher frequencies
+# Generate shades of blue 
+colors = sns.color_palette('Bluess', len(frequency_counts))[::-1]  # Darker shades for higher frequencies
 # Create the pie chart
 fig, ax = plt.subplots(figsize=(3, 3))
 ax.pie(
