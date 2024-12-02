@@ -160,11 +160,11 @@ df['SimplifiedPurpose'] = df['Purpose'].apply(
 # Count occurrences of each simplified purpose
 purpose_counts = df['SimplifiedPurpose'].value_counts()
 st.title("Purpose of Using AI Tools")
-
 # Display the top 5 categories
-top_purposes = purpose_counts.head(5)
+top_purposes = purpose_counts.iloc[:5]  # Use .iloc to fix FutureWarning
 # Plot the data
 fig, ax = plt.subplots(figsize=(8, 6))
+
 # Highlight top two bars in blue, others in grey
 colors = ['blue' if i < 2 else 'grey' for i in range(len(top_purposes))]
 # Remove borders using edgecolor
@@ -172,16 +172,30 @@ sns.barplot(
     x=top_purposes.values,
     y=top_purposes.index,
     palette=colors,
-    ax=ax,
-    edgecolor=None  # Remove borders
+    ax=ax
 )
 # Add labels to bars with bold labels for the top 2
-for i, (value, bar) in enumerate(zip(top_purposes.values, ax.containers[0])):
+for i, bar in enumerate(ax.patches):
+    value = top_purposes.values[i]
     label = f"{value}"
     if i < 2:
-        ax.bar_label([bar], labels=[label], fmt='%d', padding=3, fontsize=12, weight='bold')  # Bold for top 2
+        ax.text(
+            bar.get_width() + 0.1,  # X-coordinate
+            bar.get_y() + bar.get_height() / 2,  # Y-coordinate
+            label,
+            fontsize=12,
+            fontweight='bold',
+            va='center'  # Center vertically
+        )
     else:
-        ax.bar_label([bar], labels=[label], fmt='%d', padding=3, fontsize=10)  # Regular for others
+        ax.text(
+            bar.get_width() + 0.1,
+            bar.get_y() + bar.get_height() / 2,
+            label,
+            fontsize=10,
+            va='center'
+        )
+
 # Customize chart aesthetics
 ax.set_title("Most Common Purposes for Using AI", fontweight='bold')
 ax.set_xlabel("Number of Students")
@@ -194,6 +208,11 @@ st.pyplot(fig)
 
 
 
+
+
+
+
+#test
 # Group similar purposes into broader categories
 df['SimplifiedPurpose'] = df['Purpose'].apply(
     lambda x: 'Research Assistance' if 'Research' in x else
