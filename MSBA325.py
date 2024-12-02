@@ -331,54 +331,7 @@ else:
     st.warning("Please select at least one year to visualize.")
 
 
-
-
-
-
-
-#Visualization 8
-# Add row numbers as the index for visualization
-df["Student"] = df.index + 1
-st.subheader("Interactive Line Chart: Grades Before and After Using AI")
-st.write(
-    """
-    This chart shows a comparison of students' grades before and after using AI tools. 
-    We will use this interactive chart to explore how AI has impacted performance.
-    """
-)
-# Melt the data to create separate categories for AverageBefore and AverageAfter
-df_melted = df.melt(id_vars=["Student"], value_vars=["AverageBefore", "AverageAfter"], 
-                    var_name="Category", value_name="Average")
-
-# Plotly scatter plot
-fig = px.scatter(
-    df_melted,
-    x="Student",
-    y="Average",
-    color="Category",
-    title="Grades Before and After AI Usage",
-    labels={"Student": "Students", "Average": "Grades"},
-    template="simple_white",
-)
-# Customize the layout for clarity
-fig.update_layout(
-    xaxis_title="Student Number",
-    yaxis_title="Grades",
-    title_font=dict(size=18, color="black", family="Arial"),
-    legend_title=None,
-    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5),
-    showlegend=True,
-)
-st.plotly_chart(fig)
-# Add explanation text after the chart
-st.markdown("""
-### Analysis:
-The visualization clearly indicates an improvement in student performance after using AI tools. 
-The orange points representing **'AverageAfter'** are consistently higher than the blue points representing **'AverageBefore'** for most students. 
-This suggests that the adoption of AI tools has positively impacted academic performance, as reflected in the increased grades.
-""")
-
-# Visualization 9: Impact of AI Usage on Understanding
+# Visualization 8: Impact of AI Usage on Understanding
 st.subheader("Impact of AI Usage on Understanding")
 # Create the count plot
 fig, ax = plt.subplots(figsize=(8, 6))
@@ -400,8 +353,7 @@ The chart shows the impact of AI usage on understanding, categorized by levels o
 """)
 
 
-
-# Visualization 10: Familiarity with AI by Education Level
+# Visualization 9: Familiarity with AI by Education Level
 st.subheader("Familiarity with AI by Education Level")
 # Create a crosstab to calculate counts of each combination of EducationLevel and Familiarity
 cross_tab = pd.crosstab(df['EducationLevel'], df['Familiarity'])
@@ -428,7 +380,7 @@ st.write(
     """
 )
 
-#Visualization 11
+#Visualization 10
 # Drop null values and count responses in the 'GPTPaid' column
 gpt_paid_data_counts = df['GPTPaid'].dropna().value_counts()
 
@@ -475,7 +427,7 @@ st.write(
     """
 )
 
-#Visualizaton 12
+#Visualizaton 11
 # Static data extracted from the dataset
 tool_usage_counts = {
     'ChatGPT': 311,
