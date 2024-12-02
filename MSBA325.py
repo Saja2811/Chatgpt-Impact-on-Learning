@@ -170,6 +170,44 @@ ax.set_ylabel("Purpose")
 st.pyplot(fig)
 
 
+
+
+
+# Group similar purposes into broader categories
+df['SimplifiedPurpose'] = df['Purpose'].apply(
+    lambda x: 'Research Assistance' if 'Research' in x else
+              'Writing Assistance' if 'Writing' in x else
+              'Technical Help' if 'Coding' in x else
+              'Concept Understanding' if 'Concept' in x else
+              'Other'
+)
+
+# Count occurrences of each simplified purpose
+purpose_counts = df['SimplifiedPurpose'].value_counts()
+# Streamlit app title
+st.title("Purpose of Using AI Tools")
+
+# Display the top 5 categories
+top_purposes = purpose_counts.head(5)
+fig, ax = plt.subplots(figsize=(8, 6))
+
+# Highlight top two bars in blue, others in grey
+colors = ['blue' if i < 2 else 'grey' for i in range(len(top_purposes))]
+sns.barplot(
+    x=top_purposes.values,
+    y=top_purposes.index,
+    palette=colors,  # Apply custom colors
+    ax=ax
+)
+# Customize chart aesthetics
+ax.set_title("Most Common Purposes for Using AI", fontweight='bold')
+ax.set_xlabel("Number of Students")
+ax.set_ylabel("Purpose")
+ax.bar_label(ax.containers[0], fmt='%d', padding=3)  # Add labels to bars
+st.pyplot(fig)
+
+
+
 # Visualization 5: Distribution of AI Usage Frequency
 # Calculate the frequency distribution and sort it
 frequency_counts = df['Frequency'].value_counts()
